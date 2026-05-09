@@ -1,31 +1,33 @@
-console.log("Bienvenido a Cortinas y Tapetes");
-
 const menuButton = document.querySelector("#menuToggle");
-const menu = document.querySelector(".menu");
+const menu = document.querySelector("#mainMenu");
 const menuLinks = document.querySelectorAll(".menu a");
+const tipsButton = document.querySelector("#tipsButton");
+const tipsPanel = document.querySelector("#tipsPanel");
 
-menuButton.addEventListener("click", function () {
-  menu.classList.toggle("active");
-});
+if (menuButton && menu) {
+  menuButton.addEventListener("click", function () {
+    menu.classList.toggle("active");
+  });
+}
 
 menuLinks.forEach(function (link) {
-  link.addEventListener("click", function (event) {
-    const sectionId = link.getAttribute("href");
-
-    if (!sectionId.startsWith("#")) {
-      return;
-    }
-
-    const section = document.querySelector(sectionId);
-
-    if (section) {
-      event.preventDefault();
-
-      section.scrollIntoView({
-        behavior: "smooth"
-      });
-
+  link.addEventListener("click", function () {
+    if (menu) {
       menu.classList.remove("active");
     }
   });
 });
+
+if (tipsButton && tipsPanel) {
+  tipsButton.addEventListener("click", function () {
+    const isHidden = tipsPanel.hasAttribute("hidden");
+
+    if (isHidden) {
+      tipsPanel.removeAttribute("hidden");
+      tipsButton.textContent = "Ocultar consejos";
+    } else {
+      tipsPanel.setAttribute("hidden", "");
+      tipsButton.textContent = "Ver consejos";
+    }
+  });
+}
